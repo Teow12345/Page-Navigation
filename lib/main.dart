@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 void main() {
   runApp(MyApp());
 }
@@ -36,7 +35,6 @@ class _BottomNavigationExampleState extends State<BottomNavigationExample> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       body: _pages[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
@@ -74,9 +72,12 @@ class StackNavigationExample extends StatelessWidget {
       body: Center(
         child: ElevatedButton(
           onPressed: () {
+            // Pass data when navigating to SecondScreen
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => SecondScreen()),
+              MaterialPageRoute(
+                builder: (context) => SecondScreen(dataFromPreviousPage: 'Hello from the first screen'),
+              ),
             );
           },
           child: Text('Go to Second Screen'),
@@ -87,6 +88,10 @@ class StackNavigationExample extends StatelessWidget {
 }
 
 class SecondScreen extends StatelessWidget {
+  final String dataFromPreviousPage;
+
+  SecondScreen({required this.dataFromPreviousPage});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -99,6 +104,7 @@ class SecondScreen extends StatelessWidget {
           children: [
             Text('This is the second screen'),
             SizedBox(height: 20),
+            Text('Data from previous page: $dataFromPreviousPage'),
             ElevatedButton(
               onPressed: () {
                 Navigator.pop(context); // Go back to the previous screen
